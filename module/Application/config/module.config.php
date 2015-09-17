@@ -50,6 +50,20 @@ return array(
                     ),
                 ),
             ),
+			'menter' => array(
+				'type'    => 'segment',
+				'options' => array(
+					'route'    => '/menter[/:action]',
+					'constraints' => array(
+						'action' => '[a-zA-Z][a-zA-Z0-9_-]*',
+						'id'     => '[0-9]+',
+					),
+					'defaults' => array(
+						'controller' => 'Application\Controller\Menter',
+						'action'     => 'logout',
+					),
+				),
+			),
         ),
     ),
     'service_manager' => array(
@@ -73,7 +87,8 @@ return array(
     ),
     'controllers' => array(
         'invokables' => array(
-            'Application\Controller\Index' => 'Application\Controller\IndexController'
+            'Application\Controller\Index' => 'Application\Controller\IndexController',
+            'Application\Controller\Menter' => 'Application\Controller\MenterController',
         ),
     ),
     'view_manager' => array(
