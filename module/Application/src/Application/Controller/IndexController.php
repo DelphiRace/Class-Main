@@ -16,17 +16,16 @@ class IndexController extends AbstractActionController
 {
     public function indexAction()
     {
+		@session_start();
 		$HeadTitle = $this->getServiceLocator()->get('ViewHelperManager')->get('HeadTitle');
 		
 		if(empty($_SESSION)){
-			$HeadTitle->set('Login Page');
-			$this->viewContnet['pageContent'] = $this->getPageContent('index','login_page');
+			header("location: http://127.0.0.1:120?redirect_url=http://127.0.0.1:121/auth_back.php");
+			exit();
 		}else{
 			$isLoginContent = $this->getPageContent('index','after_login');
-			$isLoginContent = str_replace("@@requestTokenCode@@",$_SESSION["requestTokenCode"],$isLoginContent);
+			$isLoginContent = str_replace("@@userName@@",$_SESSION["userName"],$isLoginContent);
 			$this->viewContnet['pageContent']= $isLoginContent;
-			//header("location: http://127.0.0.1:120/auth_back.php?login_code=".$_GET["login_code"]);
-			//exit();
 		}
         return new ViewModel($this->viewContnet);
     }
