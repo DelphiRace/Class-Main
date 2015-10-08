@@ -35,7 +35,7 @@
 	$_SESSION["uid"] = $userInfo->uid;
 	$_SESSION["userName"] = $userInfo->userName;
 	$_SESSION["userMail"] = $userInfo->userMail;
-	
+    
 	//導回首頁
 	header("location: ./");
 	//print_r($_SESSION);

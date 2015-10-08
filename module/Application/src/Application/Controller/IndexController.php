@@ -35,7 +35,12 @@ class IndexController extends AbstractActionController
 		$pageContent = '';
 		if(file_exists($pagePath)){
 			$pageContent = file_get_contents($pagePath);
-		}
+        }else{
+            $pagePath = dirname(__DIR__) . "/../../../../public/include/pageContent/".$pageType."/".$pageName.".html";
+            if(file_exists($pagePath)){
+                $pageContent = file_get_contents($pagePath);
+            }
+        }
 		return $pageContent;
 	}
 }
