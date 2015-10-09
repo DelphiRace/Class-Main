@@ -32,7 +32,7 @@
 	curl_close($ch);
 	//print_r($response);
 	$userInfo = json_decode($response);
-	$_SESSION["uid"] = $userInfo->uid;
+	$_SESSION["uuid"] = $userInfo->uuid;
 	$_SESSION["userName"] = $userInfo->userName;
 	$_SESSION["userMail"] = $userInfo->userMail;
     
