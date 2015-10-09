@@ -11,36 +11,31 @@ namespace Application\Controller;
 
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
+use System_APService\clsSystem;
 
 class IndexController extends AbstractActionController
 {
     public function indexAction()
     {
+		$VTs = new clsSystem;
+		$VTs->initialization();
+		
+		//-----BI開始-----
 		@session_start();
-		$HeadTitle = $this->getServiceLocator()->get('ViewHelperManager')->get('HeadTitle');
+		//$HeadTitle = $this->getServiceLocator()->get('ViewHelperManager')->get('HeadTitle');
 		
 		if(empty($_SESSION)){
 			header("location: http://127.0.0.1:120?redirect_url=http://127.0.0.1:121/auth_back.php");
 			exit();
 		}else{
-			$isLoginContent = $this->getPageContent('index','after_login');
-			$isLoginContent = str_replace("@@userName@@",$_SESSION["userName"],$isLoginContent);
-			$this->viewContnet['pageContent']= $isLoginContent;
+			$pagePath = dirname(__DIR__) . "\\..\\..\\..\\..\\public\\include\\pageContent\\index\\after_login.html";
+			$pageContent = $VTs->GetHtmlContent($pagePath);
+			$pageContent = str_replace("@@userName@@",$_SESSION["userName"],$pageContent);
 		}
+		//----BI結束----
+		
+		$VTs = null;
+		$this->viewContnet['pageContent'] = $pageContent;
         return new ViewModel($this->viewContnet);
     }
-	
-	private function getPageContent($pageType,$pageName){
-		$pagePath = dirname(__DIR__) . "\\..\\..\\..\\..\\public\\include\\pageContent\\".$pageType."\\".$pageName.".html";
-		$pageContent = '';
-		if(file_exists($pagePath)){
-			$pageContent = file_get_contents($pagePath);
-        }else{
-            $pagePath = dirname(__DIR__) . "/../../../../public/include/pageContent/".$pageType."/".$pageName.".html";
-            if(file_exists($pagePath)){
-                $pageContent = file_get_contents($pagePath);
-            }
-        }
-		return $pageContent;
-	}
 }
