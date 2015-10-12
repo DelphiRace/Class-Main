@@ -21,11 +21,14 @@ class IndexController extends AbstractActionController
 		$VTs->initialization();
 		
 		//-----BI開始-----
-		@session_start();
 		//$HeadTitle = $this->getServiceLocator()->get('ViewHelperManager')->get('HeadTitle');
         //$VTs->debug($_SESSION);
 		if(empty($_SESSION)){
-			header("location: http://127.0.0.1:120?redirect_url=http://127.0.0.1:121/auth_back.php");
+            //取得登入導向ＵＲＬ設定檔
+           // $strIniFile = dirname( dirname( dirname( dirname( dirname(__DIR__) ) ) ) ) . "\\public\\include\\redirect.ini";
+            $strIniFile = dirname(__DIR__) . "\\..\\..\\..\\..\\public\\include\\redirect.ini";
+            $redirect_url = $VTs->GetINIInfo($strIniFile,'login','login_url','');
+            header("location: ".$redirect_url);
 			exit();
 		}else{
 			$pagePath = dirname(__DIR__) . "\\..\\..\\..\\..\\public\\include\\pageContent\\index\\after_login.html";

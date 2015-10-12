@@ -31,10 +31,14 @@ class PageactionController extends AbstractActionController
 		//-----BI開始-----
 		$action = array();
 		$action["status"] = false;
-		if(!empty($_SESSION["position"])){			
+		//if(!empty($_SESSION["position"])){
 			//取得Classroom系統權限
 			$strSQL = "select uid,nid,parent_layer,class_style,href,click_action from menu ";
-			$strSQL .= "where (".$this->PositionStr2SQLCondition($_SESSION["position"]).") or (position like ('%0%')) ";
+            if($_SESSION["position"]){
+                $strSQL .= "where (".$this->PositionStr2SQLCondition($_SESSION["position"]).") or (position like ('%0%')) ";
+            }else{
+                $strSQL .= "where (position like ('%0%')) ";
+            }
 			$strSQL .= "order by sequence,uid asc";
 			$data = $VTs->QueryData($strSQL);
 			//取得選單
@@ -47,9 +51,9 @@ class PageactionController extends AbstractActionController
 			//$action["menu"] = $data;
 			$action["menu"] = $this->CreatMenuContent($data, $creatParentStyle, $contentStyle, $otherContentStyle);
 			$action["status"] = true;
-		}else{
-			$action["msg"] = 'Please Login and Try Again!';
-		}
+		//}else{
+		//	$action["msg"] = 'Please Login and Try Again!';
+		//}
 		$pageContent = $VTs->Data2Json($action);
 		//-----BI結束-----
 		$VTs = null;

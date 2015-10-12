@@ -21,7 +21,9 @@
 		
 		//讀取INI檔資料 GetINIInfo(strIniFile, sSection, sKeyName, sDefaultValue = "") As String
 		public function GetINIInfo($strIniFile,$sSection,$sKeyName,$sDefaultValue = "",$originDataArray = false){
-			
+            if(!file_exists($strIniFile)){
+                $strIniFile = str_replace("\\","/",$strIniFile);
+            }
 			if($originDataArray){
 				return parse_ini_file($strIniFile);
 			}else{
