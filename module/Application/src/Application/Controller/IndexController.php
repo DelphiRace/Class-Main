@@ -23,7 +23,7 @@ class IndexController extends AbstractActionController
 		//-----BI開始-----
 		@session_start();
 		//$HeadTitle = $this->getServiceLocator()->get('ViewHelperManager')->get('HeadTitle');
-		
+        //$VTs->debug($_SESSION);
 		if(empty($_SESSION)){
 			header("location: http://127.0.0.1:120?redirect_url=http://127.0.0.1:121/auth_back.php");
 			exit();

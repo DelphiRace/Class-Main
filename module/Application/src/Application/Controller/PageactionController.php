@@ -24,6 +24,7 @@ class PageactionController extends AbstractActionController
 	//取得選單
 	public function getmenuAction()
     {
+        //session_start();
 		$VTs = new clsSystem;
 		$VTs->initialization();
 		

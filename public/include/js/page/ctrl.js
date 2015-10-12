@@ -58,7 +58,7 @@ function useGetAjax(url, data){
 		async: false,
 		dataType: "JSON",
 		success: function(rs){
-			console.log(rs);
+			//console.log(rs);
 			if(rs.status){
 				result = rs.menu;
 			}else{

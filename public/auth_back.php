@@ -23,7 +23,8 @@
 	$url="http://127.0.0.1:99/token.php";
 	$response = $VTs->UrlDataPost($url, $postArr);
 	$userInfo = $VTs->Json2Data($response);
-	//$VTs->debug($userInfo);
+	//$VTs->debug($response);
+    //exit();
 	$_SESSION["uuid"] = $userInfo->uuid;
 	$_SESSION["userName"] = $userInfo->userName;
 	$_SESSION["userMail"] = $userInfo->userMail;
@@ -33,6 +34,7 @@
 	$strSQL .= "left join position b on a.position_uid = b.uid ";
 	$strSQL .= "where a.uuid='".$userInfo->uuid."'";
 	$data = $VTs->QueryData($strSQL);
+    //echo $strSQL;
 	//$VTs->debug($data);
 	$position = '';
 	foreach($data as $content){
