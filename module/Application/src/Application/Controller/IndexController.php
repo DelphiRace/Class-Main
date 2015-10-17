@@ -31,7 +31,7 @@ class IndexController extends AbstractActionController
             header("location: ".$redirect_url);
 			exit();
 		}else{
-			$pagePath = dirname(__DIR__) . "\\..\\..\\..\\..\\public\\include\\pageContent\\index\\after_login.html";
+			$pagePath = dirname(__DIR__) . "\\..\\..\\..\\..\\public\\include\\pageSetting\\index\\after_login.html";
 			$pageContent = $VTs->GetHtmlContent($pagePath);
 			$pageContent = str_replace("@@userName@@",$_SESSION["userName"],$pageContent);
 		}

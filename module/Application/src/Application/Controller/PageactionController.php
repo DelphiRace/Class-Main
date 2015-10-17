@@ -42,9 +42,9 @@ class PageactionController extends AbstractActionController
 			$strSQL .= "order by sequence,uid asc";
 			$data = $VTs->QueryData($strSQL);
 			//取得選單
-			$cpPath = dirname(__DIR__) . "\\..\\..\\..\\..\\public\\include\\pageContent\\styles\\menu\\creatParents.html";
-			$cPath = dirname(__DIR__) . "\\..\\..\\..\\..\\public\\include\\pageContent\\styles\\menu\\content.html";
-			$oPath = dirname(__DIR__) . "\\..\\..\\..\\..\\public\\include\\pageContent\\styles\\menu\\otherContent.html";
+			$cpPath = dirname(__DIR__) . "\\..\\..\\..\\..\\public\\include\\pageSetting\\styles\\menu\\creatParents.html";
+			$cPath = dirname(__DIR__) . "\\..\\..\\..\\..\\public\\include\\pageSetting\\styles\\menu\\content.html";
+			$oPath = dirname(__DIR__) . "\\..\\..\\..\\..\\public\\include\\pageSetting\\styles\\menu\\otherContent.html";
 			$creatParentStyle = $VTs->GetHtmlContent($cpPath);
 			$contentStyle = $VTs->GetHtmlContent($cPath);
 			$otherContentStyle = $VTs->GetHtmlContent($oPath);
