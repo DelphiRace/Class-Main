@@ -26,6 +26,7 @@
 	//引用物件命名空間
 	use SystemDBService\clsDB_MySQL;
 	use SystemToolsService\clsTools;
+	use SystemFrameService\clsFrame;
 	//引用完畢
 	
 	class clsSystem{
@@ -33,6 +34,8 @@
 		public $SystemDBService;
 		//相關工具
 		public $SystemToolsService;
+		//相關框架設定
+		public $SystemFrameService;
 		//ini相關設定
 		public $iniSet;
 		//使用者資訊
@@ -90,7 +93,8 @@
 			//釋放
 			$VTs = null;
 			
-						
+			//建立框架設定
+			$this->SystemFrameService = new clsFrame;
 		}
 		
 	#這裡是SystemDBService
@@ -251,7 +255,15 @@
 	#modCurl結束
 	
 	#這裡是	SystemToolsService 結束
-	
+	#開始SystemFrameService
+		//新增、修改、刪除按鈕產生
+		public function CreateBasisOptionBtn($BtnType = 'Insert' , $DataArray = array(), $ActionID = 'uid', $BtnStyleClass = '') {
+			$btnStylePath = dirname(__DIR__) . "\\pageSetting\\styles\\option_btn\\".$BtnType.".html";
+			$BtnContent = $this->GetHtmlContent($btnStylePath);
+			//回傳按鈕結果
+			return $this->SystemFrameService->CreateBasisOptionBtn($BtnType, $BtnContent, $DataArray, $ActionID, $BtnStyleClass);
+		}
+	#結束SystemFrameService
 	}
 	
 	
