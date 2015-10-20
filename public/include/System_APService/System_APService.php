@@ -256,13 +256,43 @@
 	
 	#這裡是	SystemToolsService 結束
 	#開始SystemFrameService
-		//新增、修改、刪除按鈕產生
-		public function CreateBasisOptionBtn($BtnType = 'Insert' , $DataArray = array(), $ActionID = 'uid', $BtnStyleClass = '') {
-			$btnStylePath = dirname(__DIR__) . "\\pageSetting\\styles\\option_btn\\".$BtnType.".html";
-			$BtnContent = $this->GetHtmlContent($btnStylePath);
-			//回傳按鈕結果
-			return $this->SystemFrameService->CreateBasisOptionBtn($BtnType, $BtnContent, $DataArray, $ActionID, $BtnStyleClass);
-		}
+		
+        //新增按鈕
+        public function CreateInsertOptionBtn($listID, $actionUrl, $processFunction = '', $BtnStyleClass = ''){
+            $btnStylePath = dirname(__DIR__) . "\\pageSetting\\styles\\option_btn\\Insert.html";
+            $BtnContent = $this->GetHtmlContent($btnStylePath);
+            
+            //回傳按鈕結果
+            return $this->SystemFrameService->CreateInsertOptionBtn($BtnContent, $listID, $actionUrl, $processFunction, $BtnStyleClass);
+        }
+        
+        //編輯按鈕
+        public function CreateModifyOptionBtn($DataArray, $actionUrl, $inputClass, $contentClass, $processFunction = '', $ActionID = 'uid', $BtnStyleClass = ''){
+            $btnStylePath = dirname(__DIR__) . "\\pageSetting\\styles\\option_btn\\Modify.html";
+            $BtnContent = $this->GetHtmlContent($btnStylePath);
+            
+            //回傳按鈕結果
+            return $this->SystemFrameService->CreateModifyOptionBtn($BtnContent, $DataArray, $actionUrl, $inputClass, $contentClass, $processFunction, $ActionID, $BtnStyleClass);
+        }
+        
+        //刪除按鈕
+        public function CreateDeleteOptionBtn($DataArray, $actionUrl, $rowID, $processFunction='', $ActionID = 'uid', $BtnStyleClass = ''){
+            $btnStylePath = dirname(__DIR__) . "\\pageSetting\\styles\\option_btn\\Delete.html";
+            $BtnContent = $this->GetHtmlContent($btnStylePath);
+            
+            //回傳按鈕結果
+            return $this->SystemFrameService->CreateDeleteOptionBtn($BtnContent, $DataArray, $actionUrl, $rowID, $processFunction, $ActionID, $BtnStyleClass);
+        }
+        
+        //刪除按鈕
+        public function CreateFinishOptionBtn($DataArray, $actionUrl, $inputClass, $contentClass, $processFunction = '', $ActionID = 'uid', $BtnStyleClass = ''){
+            $btnStylePath = dirname(__DIR__) . "\\pageSetting\\styles\\option_btn\\Finish.html";
+            $BtnContent = $this->GetHtmlContent($btnStylePath);
+            
+            //回傳按鈕結果
+            return $this->SystemFrameService->CreateFinishOptionBtn($BtnContent, $DataArray, $actionUrl, $inputClass, $contentClass, $processFunction, $ActionID, $BtnStyleClass);
+        }
+        
 	#結束SystemFrameService
 	}
 	

@@ -32,35 +32,94 @@ sysFrameItem.prototype = {
 };
 
 
-//$(this),insert/modify/delete/finish, tableID/DivID, ctrlPage
-function sysFrameBtn(actionObject, actionType, listID, actionUrl){
-    var dataObject, appendAction=false;
-    
-    switch(actionType){
-        case "insert":
-            appendAction = true;
-        break;
-        case "modify":
-            
-        break;
-        case "delete":
-        break;
-        case "finish":
-            
-        break;
+//$(this),insert/modify/delete/finish, tableID/DivID, ctrlPage/webPage
+
+//新增
+function sysFrameInsertBtn(listID, actionUrl, processFunction){
+    if(processFunction){
+        try{
+            $.fn[processFunction]();
+        }catch(e){
+            console.log(processFunction + "Function Error"+e);
+        }
     }
-    optionAction(actionUrl, listID, dataObject, appendAction);
+    optionAction(actionUrl, listID, {}, true);
 }
+
+//修改
+function sysFrameModifyBtn(actionObject, actionUrl, inputClass, contentClass, processFunction){
+    if(!contentClass || !inputClass){
+        console.log("contentClass or inputClass Error");
+        return;
+    }
+    
+    var sfiContent = new sysFrameItem(contentClass);
+    var sfiInput = new sysFrameItem(inputClass);
+    
+    sfiContent.hideAction();
+    sfiInput.showAction();
+    
+    if(processFunction){
+        try{
+            $.fn[processFunction]();
+        }catch(e){
+            console.log(processFunction + "Function Error"+e);
+        }
+    }
+    optionAction(actionUrl, '', {}, false);
+}
+
+//刪除
+function sysFrameDeleteBtn(actionObject, rowID, actionUrl, processFunction){
+    var itemID = actionObject.prop("id").replace("dAct","");
+    var dataObject = {itemID:itemID}
+    
+    if(processFunction){
+        try{
+            $.fn[processFunction]();
+        }catch(e){
+            console.log(processFunction + "Function Error"+e);
+        }
+    }
+    optionAction(actionUrl, '', dataObject, false);
+}
+
+//完成
+function sysFrameDeleteBtn(actionObject, inputClass, contentClass, actionUrl, processFunction){
+    var itemID = actionObject.prop("id").replace("fAct","");
+    var dataObject;
+    var sfiContent = new sysFrameItem(contentClass);
+    var sfiInput = new sysFrameItem(inputClass);
+    
+    sfiContent.hideAction();
+    sfiInput.showAction();
+    dataObject = sfiInput.getInputAction();
+    dataObject.itemID = itemID;
+    
+    if(processFunction){
+        try{
+            $.fn[processFunction]();
+        }catch(e){
+            console.log(processFunction + "Function Error"+e);
+        }
+    }
+    
+    optionAction(actionUrl, '', dataObject, false);
+}
+
 
 function optionAction(actionUrl, listID, dataObject, appendAction){
     if(actionUrl != ''){
+        if(typeof appendAction === 'undefined'){
+            appendAction = true;
+        }
         $.ajax({
             url: actionUrl,
             type: "POST",
             data: dataObject,
             success: function(rs){
                if(appendAction){
-                   rs+$("#"+listID)
+                   $(rs).appendTo("#"+listID);
                }
                console.log(rs);
             },
@@ -72,3 +131,4 @@ function optionAction(actionUrl, listID, dataObject, appendAction){
         console.log('actionUrl is not set');
     }
 }
+

@@ -34,7 +34,7 @@ class IndexController extends AbstractActionController
 			$pagePath = dirname(__DIR__) . "\\..\\..\\..\\..\\public\\include\\pageSetting\\index\\after_login.html";
 			$pageContent = $VTs->GetHtmlContent($pagePath);
 			$pageContent = str_replace("@@userName@@",$_SESSION["userName"],$pageContent);
-			$pageContent = $VTs->CreateBasisOptionBtn(). $VTs->CreateBasisOptionBtn('Modify',array("uid"=>"1")). $VTs->CreateBasisOptionBtn('Delete',array("uid"=>"1")) . $pageContent;
+			$pageContent = $VTs->CreateInsertOptionBtn('test','test/tw'). $VTs->CreateModifyOptionBtn(["uid"=>1], 'test/tw', 'inputClass', 'contentClass') . $VTs->CreateDeleteOptionBtn(["uid"=>1], 'test/tw', 'rowID') . $VTs->CreateFinishOptionBtn(["uid"=>1], 'test/tw', 'inputClass', 'contentClass') . $pageContent;
 		}
 		//----BI結束----
 		
