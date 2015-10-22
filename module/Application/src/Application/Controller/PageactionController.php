@@ -31,7 +31,7 @@ class PageactionController extends AbstractActionController
 		//-----BI開始-----
 		$action = array();
 		$action["status"] = false;
-		//if(!empty($_SESSION["position"])){
+		//if(!empty($_POST["position"])){
 			//取得Classroom系統權限
 			$strSQL = "select uid,nid,parent_layer,class_style,href,click_action from menu ";
             if($_SESSION["position"]){
